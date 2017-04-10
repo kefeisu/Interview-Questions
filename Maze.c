@@ -35,18 +35,19 @@ struct maze * mazeCreate(int x, int y) {
     struct maze *m = malloc(sizeof(struct maze));
     m->x = x;
     m->y = y;
-    m->array = malloc(y*sizeof(int*));
+    m->array = malloc(x*sizeof(int*));
     
-    for (int i = 0; i < y; ++i) {
-        m->array[i] = malloc(x*sizeof(int));
+    for (int i = 0; i < x; ++i) {
+        m->array[i] = malloc(y*sizeof(int));
     }
     
     for (int i = 0; i < x; ++i) {
         for (int j = 0; j < y; ++ j) {
-            /* generate paths at a 67% rate */
-            m->array[i][j] = ((random()%100) <= 67 );
+            /* generate paths at a 75% rate */
+            m->array[i][j] = ((random()%100) <= 75 );
         }
     }
+    /* first and last elements must be true */
     m->array[0][0] = true;
     m->array[x-1][y-1] = true;
     return m;
@@ -70,7 +71,7 @@ void printMaze(struct maze *m) {
         for (int j = 0; j < m->y-1; ++j) {
             printf("[%d]", m->array[i][j]);
         }
-        printf("[%d]\n", m->array[i][m->x - 1]);
+        printf("[%d]\n", m->array[i][m->y - 1]);
     }
 }
 
@@ -88,37 +89,37 @@ bool DFS(struct maze *m, bool *visited, int xnode, int ynode) {
     bool result;
     
     /* already visited */
-    int index = xnode*m->x + ynode;
+    int index = xnode*m->y + ynode;
     if(!isValid(m,xnode,ynode) || visited[index]) { return false; }
     else { visited[index] = true; }
     /* last node */
     if(xnode == m->x - 1 && ynode == m->y - 1) {
-        printf("[%d,%d] ", ynode, xnode);
+        printf("[%d,%d] ", xnode, ynode);
         return true;
     }
     
     /* down */
     result = DFS(m,visited,xnode,ynode+1);
     if (result) {
-        printf("[%d,%d] ", ynode, xnode);
+        printf("[%d,%d] ", xnode, ynode);
         return result;
     }
     /* right */
     result = DFS(m,visited,xnode+1,ynode);
     if (result) {
-        printf("[%d,%d] ", ynode, xnode);
+        printf("[%d,%d] ", xnode, ynode);
         return result;
     }
     /* up */
     result = DFS(m,visited,xnode,ynode-1);
     if (result) {
-        printf("[%d,%d] ", ynode, xnode);
+        printf("[%d,%d] ", xnode, ynode);
         return result;
     }
     /* left */
     result = DFS(m,visited,xnode-1,ynode);
     if (result) {
-        printf("[%d,%d] ", ynode, xnode);
+        printf("[%d,%d] ", xnode, ynode);
         return result;
     }
 
@@ -141,7 +142,7 @@ void printPath(struct maze *m) {
 
 int main(void) {
     srand(time(NULL));
-    struct maze *m = mazeCreate(4,5);
+    struct maze *m = mazeCreate(4,6);
     printMaze(m);
     printPath(m);
     mazeDestroy(m);
