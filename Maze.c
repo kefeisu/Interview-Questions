@@ -143,8 +143,9 @@ void printPath(struct maze *m) {
 
 int main(void) {
     srand(time(NULL));
-    int x,y;
-    while(true) {
+    int x = 1, y = 1;
+    /* enter 0 as dimentions to quit */
+    while(x != 0 && y != 0) {
         printf("enter maze dimentions:");
         scanf("%d", &x);
         scanf("%d", &y);
