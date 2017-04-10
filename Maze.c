@@ -128,7 +128,7 @@ bool DFS(struct maze *m, bool *visited, int xnode, int ynode) {
 }
 
 
-/* prints a path from index 0,0 to x,y of a maze if it exists */
+/* prints a path from index 0,0 to x,y (in reverse order) of a maze if it exists */
 void printPath(struct maze *m) {
     int nodeAmount = m->x * m->y;
     bool *visited = malloc(nodeAmount*sizeof(int));
@@ -136,15 +136,22 @@ void printPath(struct maze *m) {
         visited[i] = false;
     }
     if(!DFS(m,visited,0,0)) { printf("no path exists\n"); }
+    else { printf("\n"); }
     free(visited);
     
 }
 
 int main(void) {
     srand(time(NULL));
-    struct maze *m = mazeCreate(4,6);
-    printMaze(m);
-    printPath(m);
-    mazeDestroy(m);
+    int x,y;
+    while(true) {
+        printf("enter maze dimentions:");
+        scanf("%d", &x);
+        scanf("%d", &y);
+        struct maze *m = mazeCreate(x,y);
+        printMaze(m);
+        printPath(m);
+        mazeDestroy(m);
+    }
     return 0;
 }
