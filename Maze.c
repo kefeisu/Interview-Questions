@@ -23,7 +23,7 @@
  * from index [0,0] to [x,y]
  *
  * example of path from maze above: 
- * [0,0] [1,0] [1,1] [1,2] [2,2]
+ * [0,0] [0,1] [1,1] [2,1] [2,2]
  */
 struct maze {
     
