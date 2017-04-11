@@ -21,6 +21,9 @@
  *
  * we want to determine if there is a valid path
  * from index [0,0] to [x,y]
+ *
+ * example of path from maze above: 
+ * [0,0] [1,0] [1,1] [1,2] [2,2]
  */
 struct maze {
     
@@ -36,7 +39,6 @@ struct maze * mazeCreate(int x, int y) {
     m->x = x;
     m->y = y;
     m->array = malloc(x*sizeof(int*));
-    
     for (int i = 0; i < x; ++i) {
         m->array[i] = malloc(y*sizeof(int));
     }
@@ -50,11 +52,12 @@ struct maze * mazeCreate(int x, int y) {
     /* first and last elements must be true */
     m->array[0][0] = true;
     m->array[x-1][y-1] = true;
+    
     return m;
 }
 
 
-/* destroys a maze and free's it's memory */
+/* destroys a maze and frees its memory */
 void mazeDestroy(struct maze *m) {
     for (int i = 0; i < m->x; ++i){
         free(m->array[i]);
@@ -64,7 +67,7 @@ void mazeDestroy(struct maze *m) {
     
 }
 
-/* print's out the maze */
+/* prints out the maze */
 void printMaze(struct maze *m) {
     
     for (int i = 0; i < m->x; ++i) {
@@ -88,11 +91,12 @@ bool DFS(struct maze *m, bool *visited, int xnode, int ynode) {
     
     bool result;
     
-    /* already visited */
+    /* case: already visited or invalid */
     int index = xnode*m->y + ynode;
     if(!isValid(m,xnode,ynode) || visited[index]) { return false; }
     else { visited[index] = true; }
-    /* last node */
+    
+    /* case: last node */
     if(xnode == m->x - 1 && ynode == m->y - 1) {
         printf("[%d,%d] ", xnode, ynode);
         return true;
@@ -123,20 +127,23 @@ bool DFS(struct maze *m, bool *visited, int xnode, int ynode) {
         return result;
     }
 
-    
     return false;
 }
 
 
+/* to implement in-order print */
 /* prints a path from index 0,0 to x,y (in reverse order) of a maze if it exists */
 void printPath(struct maze *m) {
     int nodeAmount = m->x * m->y;
+    
     bool *visited = malloc(nodeAmount*sizeof(int));
     for (int i = 0; i < nodeAmount; ++i) {
         visited[i] = false;
     }
+    
     if(!DFS(m,visited,0,0)) { printf("no path exists\n"); }
     else { printf("\n"); }
+    
     free(visited);
     
 }
@@ -144,7 +151,7 @@ void printPath(struct maze *m) {
 int main(void) {
     srand(time(NULL));
     int x = 1, y = 1;
-    /* enter 0 as dimentions to quit */
+    /* enter 0 as dimention to quit */
     while(x != 0 && y != 0) {
         printf("enter maze dimentions:");
         scanf("%d", &x);
