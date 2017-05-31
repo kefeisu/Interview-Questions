@@ -1,0 +1,59 @@
+$text-color: #30373B;
+$success-color: #7AB55C;
+$error-color: #C23628;
+$border-color: #A7A7A7;
+
+$body-font-size: 13px;
+$title-font-size: 32px;
+$subtitle-font-size: 20px;
+$form-font-size: 16px;
+h1 {
+  font-weight: normal;
+  line-height: 0.7;
+  font-size: 32px;
+  padding-top: 100px;
+}
+
+h3 {
+  font-family: Times;
+  font-size: 20px;
+  color:#7AB55C;
+  line-height: 0;
+}
+
+h5 {
+  padding-top: 48px;
+  padding-right: 560px;
+  padding-bottom: 0px;
+  line-height: 0;
+}
+h6 {
+  font-weight: 100;
+  font-size: 13px;
+  padding-right: 400px;
+  color:#C23628;
+}
+
+p{ 
+  font-weight: 100;
+  font-size: 20px;
+  padding-bottom: 30px;
+}
+input {
+  color:#A7A7A7;
+  font-size: 16;
+  text-align: left;
+  height: 42px;
+  width: 450px;
+  padding-left: 10px;
+}
+button{
+  background-color:#7AB55C;
+  border: none;
+  color:#FFFFFF;
+  height: 48px;
+  width: 144px;
+  padding-bottom: 1px;
+  padding-left: 0px;
+  border-radius: 0px 3px 3px 0px;
+}

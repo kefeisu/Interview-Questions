@@ -1,0 +1,9 @@
+"use strict";
+
+function submit() {
+  if (document.getElementById("form").value === "Enter your email address") {
+    document.getElementById("error").innerHTML = "There was an error with your email.";
+  } else {
+    document.getElementById("error").innerHTML = "";
+  }
+}
