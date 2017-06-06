@@ -1,4 +1,3 @@
-
 import java.lang.Math;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -7,9 +6,7 @@ import java.time.ZoneId;
  * Given a time, what is the angle formed by the two clock hands
  */
 
-
 public class ClockAngle {
-    
     /*
      * Returns the smaller angle (in degrees) between the hour-hand
      * and the minute-hand of a clock given a specific time.
@@ -23,10 +20,8 @@ public class ClockAngle {
     }
 
     public static void main(String[] args) {
-        
         ZoneId EST = ZoneId.of("America/New_York");
         LocalTime now = LocalTime.now(EST);
-        
         System.out.println("The Angle of The Current Time (EST) is: " +
                            getAngle(now.getHour(), now.getMinute()) + "°");
     }

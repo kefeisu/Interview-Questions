@@ -42,7 +42,6 @@ struct maze * mazeCreate(int x, int y) {
     for (int i = 0; i < x; ++i) {
         m->array[i] = malloc(y*sizeof(int));
     }
-    
     for (int i = 0; i < x; ++i) {
         for (int j = 0; j < y; ++ j) {
             /* generate paths at a 75% rate */
@@ -56,7 +55,6 @@ struct maze * mazeCreate(int x, int y) {
     return m;
 }
 
-
 /* destroys a maze and frees its memory */
 void mazeDestroy(struct maze *m) {
     for (int i = 0; i < m->x; ++i){
@@ -64,12 +62,10 @@ void mazeDestroy(struct maze *m) {
     }
     free(m->array);
     free(m);
-    
 }
 
 /* prints out the maze */
 void printMaze(struct maze *m) {
-    
     for (int i = 0; i < m->x; ++i) {
         for (int j = 0; j < m->y-1; ++j) {
             printf("[%d]", m->array[i][j]);
@@ -88,7 +84,6 @@ bool isValid(struct maze *m, int xnode, int ynode) {
 
 /* DFS graph traversal */
 bool DFS(struct maze *m, bool *visited, int xnode, int ynode) {
-    
     bool result;
     
     /* case: already visited or invalid */
@@ -101,7 +96,6 @@ bool DFS(struct maze *m, bool *visited, int xnode, int ynode) {
         printf("[%d,%d] ", xnode, ynode);
         return true;
     }
-    
     /* down */
     result = DFS(m,visited,xnode,ynode+1);
     if (result) {
@@ -135,17 +129,13 @@ bool DFS(struct maze *m, bool *visited, int xnode, int ynode) {
 /* prints a path from index 0,0 to x,y (in reverse order) of a maze if it exists */
 void printPath(struct maze *m) {
     int nodeAmount = m->x * m->y;
-    
-    bool *visited = malloc(nodeAmount*sizeof(int));
+    bool *visited = malloc(nodeAmount*sizeof(bool));
     for (int i = 0; i < nodeAmount; ++i) {
         visited[i] = false;
     }
-    
     if(!DFS(m,visited,0,0)) { printf("no path exists\n"); }
     else { printf("\n"); }
-    
     free(visited);
-    
 }
 
 int main(void) {
@@ -161,5 +151,6 @@ int main(void) {
         printPath(m);
         mazeDestroy(m);
     }
+    
     return 0;
 }
